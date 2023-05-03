@@ -2,9 +2,9 @@
 
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {Button, Heading, Input, Textarea, Modal} from '../../components';
-import styles from './style.module.css';
-import {encrypt, salsa20Expansion} from "../../services/salsa";
+import {Button, Heading, Input, Textarea, Modal} from '../../../components';
+import styles from '../../style.module.css'
+import {encrypt} from "../../../services/salsa";
 
 
 export default function App() {
@@ -23,13 +23,6 @@ export default function App() {
     }, [message, keyword]);
 
     const handleSubmit = () => {
-        let test = salsa20Expansion([
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-            201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216,
-        ],
-            [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116]
-        )
-        console.log('тест', test)
         const nonce = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00];
         let ciphertext = encrypt(message, nonce, keyword)
         setResult(() => {

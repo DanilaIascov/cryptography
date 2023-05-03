@@ -144,7 +144,7 @@ export function encrypt(plaintext: string, nonce: number[], key: string) {
 
             }
         }
-        return cipherText.join(' ')
+        return cipherText.map(el => String.fromCharCode(el)).join('')
     } catch (e) {
         return (e)
     }
@@ -156,9 +156,8 @@ export function encrypt(plaintext: string, nonce: number[], key: string) {
 export function decrypt(ciphertext: string, nonce: number[], key: string) {
     // @ts-ignore
     let byteKey = [...(new TextEncoder().encode(key))]
-    let byteCiphertext = ciphertext.split(' ').map(el => parseInt(el))
-    console.log(byteCiphertext.length)
-
+    let byteCiphertext = ciphertext.split('').map((_, index) => ciphertext.charCodeAt(index))
+    console.log(byteCiphertext)
     const blockNumber = Math.ceil(byteCiphertext.length / 64)
     const blockSize = byteCiphertext.length <= 64 ? byteCiphertext.length : 64;
 

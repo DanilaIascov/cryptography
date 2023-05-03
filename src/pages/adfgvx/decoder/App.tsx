@@ -1,31 +1,29 @@
-// noinspection DuplicatedCode
-
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {ALPHABET, Button, Heading, Input, Textarea, Modal} from '../../components';
-import styles from './style.module.css';
+import {ALPHABET, Button, Heading, Input, Modal, Textarea} from '../../../components';
+import styles from '../../style.module.css';
 import {
-    firstEncode,
-    secondEncode,
+    firstDecode,
+    secondDecode,
     addDigits
-} from '../../services/adfgvx';
-import {cleanWord, createPolybiosSquare} from "../../services/";
+} from '../../../services/adfgvx';
+import {cleanWord, createPolybiosSquare} from "../../../services";
 
 export default function App() {
-    const regex = new RegExp('[0-9]');
+    const regex = new RegExp('V');
     const [secretText, setSecretText] = useState('');
     const [firstKeyword, setFirstKeyword] = useState('');
     const [secondKeyword, setSecondKeyword] = useState('');
     const [isDisabled, setIsDisabled] = useState(true);
     const [result, setResult] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [algorithm, setAlgorithm] = useState('ADFGX encoder')
+    const [algorithm, setAlgorithm] = useState('ADFGX decoder')
 
     useEffect(() => {
         if (regex.test(secretText)) {
-            setAlgorithm('ADFGVX encoder')
+            setAlgorithm('ADFGVX decoder')
         } else {
-            setAlgorithm('ADFGX encoder')
+            setAlgorithm('ADFGX decoder')
         }
         if (secretText && firstKeyword) {
             setIsDisabled(false)
@@ -35,25 +33,23 @@ export default function App() {
     }, [secretText, firstKeyword]);
 
     const handleSubmit = () => {
-        const cleanSecretText = secretText.toLowerCase().replace(/\s/g, '');
         const cleanKeyword = firstKeyword.toLowerCase();
-        let firstEncodedText
+        const firstDecodedText = firstDecode(cleanKeyword, secretText.replace(/\s/g, ''));
+        let secondDecodedText:string;
         if (regex.test(secretText)) {
             const newAlphabet = addDigits(cleanWord(secondKeyword + ALPHABET, false));
             const polybios = createPolybiosSquare(newAlphabet, 6);
-            firstEncodedText = firstEncode(polybios, cleanSecretText, true);
+            secondDecodedText = secondDecode(polybios, firstDecodedText, true);
         } else {
             const newAlphabet = cleanWord(secondKeyword + ALPHABET);
             const polybios = createPolybiosSquare(newAlphabet);
-            firstEncodedText = firstEncode(polybios, cleanSecretText);
+            secondDecodedText = secondDecode(polybios, firstDecodedText);
         }
-        const secondEncodedText = secondEncode(firstEncodedText, cleanKeyword);
         setResult(() => {
             setIsModalOpen(true)
-            return secondEncodedText
+            return secondDecodedText
         });
     };
-
     return (
         <div className='container'>
             <Heading>{algorithm}</Heading>

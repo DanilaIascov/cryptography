@@ -4,19 +4,29 @@ import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import './style.css';
 
 const Main = lazy(() => import("./pages/main/App"));
-const SalsaEncoder = lazy(() => import("./pages/encoder_salsa/App"));
-const SalsaDecoder = lazy(() => import("./pages/decoder_salsa/App"));
-const AdfgvxEncoder = lazy(() => import("./pages/encoder_adfgvx/App"));
-const AdfgvxDecoder = lazy(() => import("./pages/decoder_adfgvx/App"));
-const PlayfairEncoder = lazy(() => import("./pages/encoder_playfair/App"));
-const PlayfairDecoder = lazy(() => import("./pages/decoder_playfair/App"));
+const SalsaEncoder = lazy(() => import("./pages/salsa/encoder/App"));
+const AdfgvxEncoder = lazy(() => import("./pages/adfgvx/encoder/App"));
+const PlayfairEncoder = lazy(() => import("./pages/playfair/encoder/App"));
+const DesEncoder = lazy(() => import("./pages/des/encoder/App"));
+const SalsaDecoder = lazy(() => import("./pages/salsa/decoder/App"));
+const AdfgvxDecoder = lazy(() => import("./pages/adfgvx/decoder/App"));
+const PlayfairDecoder = lazy(() => import("./pages/playfair/decoder/App"));
+const DesDecoder = lazy(() => import("./pages/des/decoder/App"));
+
+const Sha256Hash = lazy(() => import("./pages/sha256/hash/App"));
+
 export const main = "/";
-export const salsa_encoder = "/encoder_salsa";
-export const salsa_decoder = "/decoder_salsa";
-export const adfgvx_encoder = "/encoder_adfgvx";
-export const adfgvx_decoder = "/decoder_adfgvx";
-export const playfair_encoder = "/encoder_playfair";
-export const playfair_decoder = "/decoder_playfair";
+export const adfgvx_encoder = "/encoder/adfgvx";
+export const playfair_encoder = "/encoder/playfair";
+export const salsa_encoder = "/encoder/salsa";
+export const des_encoder = "/encoder/des";
+export const salsa_decoder = "/decoder/salsa";
+export const adfgvx_decoder = "/decoder/adfgvx";
+export const playfair_decoder = "/decoder/playfair";
+export const des_decoder = "/decoder/des";
+
+export const sha256_hash = "/hash/sha256";
+
 ReactDOM.render(
     <Router>
         <Suspense fallback={<div>Loading...</div>}>
@@ -28,6 +38,9 @@ ReactDOM.render(
                 <Route path={playfair_decoder} element={<PlayfairDecoder/>}/>
                 <Route path={salsa_encoder} element={<SalsaEncoder/>}/>
                 <Route path={salsa_decoder} element={<SalsaDecoder/>}/>
+                <Route path={des_encoder} element={<DesEncoder/>}/>
+                <Route path={des_decoder} element={<DesDecoder/>}/>
+                <Route path={sha256_hash} element={<Sha256Hash/>}/>
             </Routes>
         </Suspense>
     </Router>,

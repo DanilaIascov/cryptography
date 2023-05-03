@@ -2,10 +2,10 @@
 
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {ALPHABET, Button, Heading, Input, Textarea, Modal, ALPHABET_DIGITS} from '../../components';
-import styles from './style.module.css';
-import {cleanWord} from "../../services/";
-import {getBigrams, playfairEncode} from "../../services/playfair";
+import {ALPHABET, Button, Heading, Input, Textarea, Modal, ALPHABET_DIGITS} from '../../../components';
+import styles from '../../style.module.css';
+import {cleanWord} from "../../../services";
+import {getBigrams, playfairEncode} from "../../../services/playfair";
 
 
 export default function App() {

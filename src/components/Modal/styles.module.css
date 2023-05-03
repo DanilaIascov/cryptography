@@ -23,7 +23,7 @@
 }
 
 .content {
-    max-width: 700px;
+    max-width: fit-content;
     padding: 48px;
     font-weight: bolder;
     color: var(--yellow);
@@ -33,4 +33,3 @@
     border-radius: 40px;
     transition: all .4s ease-in-out;
 }
-
